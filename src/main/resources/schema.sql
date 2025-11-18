@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS houses;
+
+CREATE TABLE houses (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price INT NOT NULL,
+    description VARCHAR(255),
+    address VARCHAR(255),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

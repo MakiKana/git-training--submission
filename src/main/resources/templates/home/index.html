@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>民宿一覧</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            padding: 12px;
+            margin: 10px;
+            width: 300px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<h1>民宿一覧</h1>
+
+<div th:each="house : ${houses}">
+    <div class="card">
+        <h3 th:text="${house.name}"></h3>
+        <p>価格：<span th:text="${house.price}"></span> 円</p>
+        <p th:text="${house.address}"></p>
+        <a th:href="@{'/houses/' + ${house.id}}">詳細を見る</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>民宿一覧</title>
+</head>
+<body>
+<h1>民宿一覧</h1>
+
+<a th:href="@{/admin/houses/create}">新規登録</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>価格</th>
+        <th>住所</th>
+        <th>操作</th>
+    </tr>
+
+    <tr th:each="house : ${houses}">
+        <td th:text="${house.id}"></td>
+        <td th:text="${house.name}"></td>
+        <td th:text="${house.price}"></td>
+        <td th:text="${house.address}"></td>
+
+        <td>
+            <a th:href="@{'/admin/houses/' + ${house.id} + '/edit'}">編集</a>
+
+            <form th:action="@{'/admin/houses/' + ${house.id} + '/delete'}" 
+                  method="post" style="display:inline;">
+                <button type="submit">削除</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

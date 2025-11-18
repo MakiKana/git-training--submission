@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>民宿編集</title>
+</head>
+<body>
+<h1>民宿編集</h1>
+
+<form th:action="@{'/admin/houses/' + ${house.id} + '/update'}" method="post" th:object="${house}">
+    名前：<input type="text" th:field="*{name}"><br>
+    価格：<input type="number" th:field="*{price}"><br>
+    説明：<input type="text" th:field="*{description}"><br>
+    住所：<input type="text" th:field="*{address}"><br>
+
+    <button type="submit">更新する</button>
+</form>
+
+</body>
+</html>
