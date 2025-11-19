@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>会員情報編集</title>
+</head>
+<body>
+<h1>会員情報編集</h1>
+
+<form th:action="@{/user/edit}" th:object="${user}" method="post">
+    <div>
+        <label>氏名：
+            <input type="text" th:field="*{name}">
+        </label>
+    </div>
+    <div>
+        <label>フリガナ：
+            <input type="text" th:field="*{furigana}">
+        </label>
+    </div>
+    <div>
+        <label>郵便番号：
+            <input type="text" th:field="*{postalCode}">
+        </label>
+    </div>
+    <div>
+        <label>住所：
+            <input type="text" th:field="*{address}">
+        </label>
+    </div>
+    <div>
+        <label>電話番号：
+            <input type="text" th:field="*{phoneNumber}">
+        </label>
+    </div>
+    <div>
+        <button type="submit">保存</button>
+    </div>
+</form>
+
+<p><a th:href="@{/user/me}">マイページへ戻る</a></p>
+</body>
+</html>

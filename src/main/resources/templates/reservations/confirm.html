@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>予約内容</title>
+</head>
+<body>
+<h1>予約内容入力</h1>
+
+<h2 th:text="${house.name}">民宿名</h2>
+<p th:text="${house.description}">説明</p>
+<p>料金：<span th:text="${house.price}"></span> 円/泊</p>
+
+<form th:action="@{|/reservations/new/${house.id}|}"
+      th:object="${reservation}" method="post">
+    <div>
+        <label>チェックイン日：
+            <input type="date" th:field="*{checkinDate}">
+        </label>
+    </div>
+    <div>
+        <label>チェックアウト日：
+            <input type="date" th:field="*{checkoutDate}">
+        </label>
+    </div>
+    <div>
+        <label>人数：
+            <input type="number" th:field="*{numberOfPeople}">
+        </label>
+    </div>
+    <div>
+        <button type="submit">予約確定</button>
+    </div>
+</form>
+
+<p><a th:href="@{|/houses/${house.id}|}">民宿詳細へ戻る</a></p>
+</body>
+</html>

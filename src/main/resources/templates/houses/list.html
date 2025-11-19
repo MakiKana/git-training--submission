@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>民宿一覧</title>
+</head>
+<body>
+<h1>民宿一覧</h1>
+
+<ul>
+    <li th:each="house : ${houses}">
+        <a th:href="@{|/houses/${house.id}|}" th:text="${house.name}">民宿名</a>
+        （<span th:text="${house.price}"></span> 円/泊）
+    </li>
+</ul>
+
+<p><a th:href="@{/}">トップへ戻る</a></p>
+</body>
+</html>

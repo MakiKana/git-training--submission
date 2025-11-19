@@ -1,22 +1,21 @@
 package com.example.moattravel.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.moattravel.repository.HouseRepository;
-
-import lombok.RequiredArgsConstructor;
+import com.example.moattravel.service.HouseService;
 
 @Controller
-@RequiredArgsConstructor
 public class HomeController {
 
-    private final HouseRepository houseRepository;
+    @Autowired
+    private HouseService houseService;
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("houses", houseRepository.findAll());
-        return "home/index";
+        model.addAttribute("houses", houseService.findAll());
+        return "index";
     }
 }

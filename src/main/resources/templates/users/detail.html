@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>マイページ</title>
+</head>
+<body>
+<h1>マイページ</h1>
+
+<p>氏名：<span th:text="${user.name}"></span></p>
+<p>フリガナ：<span th:text="${user.furigana}"></span></p>
+<p>メール：<span th:text="${user.email}"></span></p>
+<p>住所：<span th:text="${user.postalCode}"></span> <span th:text="${user.address}"></span></p>
+<p>電話番号：<span th:text="${user.phoneNumber}"></span></p>
+
+<p><a th:href="@{/user/edit}">会員情報を編集する</a></p>
+<p><a th:href="@{/reservations/my}">予約履歴を見る</a></p>
+<p><a th:href="@{/}">トップへ戻る</a></p>
+</body>
+</html>

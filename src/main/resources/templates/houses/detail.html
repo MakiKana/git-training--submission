@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${house.name}">民宿詳細</title>
+</head>
+<body>
+<h1 th:text="${house.name}">民宿名</h1>
+
+<p th:text="${house.description}">説明</p>
+<p>料金：<span th:text="${house.price}"></span> 円/泊</p>
+<p>定員：<span th:text="${house.capacity}"></span> 名</p>
+
+<p>住所：<span th:text="${house.postalCode}"></span> <span th:text="${house.address}"></span></p>
+<p>電話番号：<span th:text="${house.phoneNumber}"></span></p>
+
+<div th:if="${#httpServletRequest.remoteUser != null}">
+    <h2>予約する</h2>
+    <form th:action="@{|/reservations/new/${house.id}|}"
+          th:object="${reservation}" method="post">
+        <div>
+            <label>チェックイン日：
+                <input type="date" th:field="*{checkinDate}">
+            </label>
+        </div>
+        <div>
+            <label>チェックアウト日：
+                <input type="date" th:field="*{checkoutDate}">
+            </label>
+        </div>
+        <div>
+            <label>人数：
+                <input type="number" th:field="*{numberOfPeople}">
+            </label>
+        </div>
+        <div>
+            <button type="submit">予約内容を確定</button>
+        </div>
+    </form>
+</div>
+<div th:if="${#httpServletRequest.remoteUser == null}">
+    <p>予約するには <a th:href="@{/login}">ログイン</a> してください。</p>
+</div>
+
+<p><a th:href="@{/houses}">一覧へ戻る</a></p>
+</body>
+</html>

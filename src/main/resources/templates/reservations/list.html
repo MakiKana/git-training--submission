@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>予約一覧</title>
+</head>
+<body>
+<h1>予約一覧</h1>
+
+<table border="1">
+    <tr>
+        <th>民宿名</th>
+        <th>チェックイン</th>
+        <th>チェックアウト</th>
+        <th>人数</th>
+        <th>金額</th>
+    </tr>
+    <tr th:each="r : ${reservations}">
+        <td th:text="${r.house.name}"></td>
+        <td th:text="${r.checkinDate}"></td>
+        <td th:text="${r.checkoutDate}"></td>
+        <td th:text="${r.numberOfPeople}"></td>
+        <td th:text="${r.amount}"></td>
+    </tr>
+</table>
+
+<p><a th:href="@{/user/me}">マイページへ戻る</a></p>
+</body>
+</html>
