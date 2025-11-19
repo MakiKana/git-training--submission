@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>マイページ</title>
+</head>
+<body>
+
+<h1>マイページ</h1>
+<h2>あなたの予約一覧</h2>
+
+<!-- 予約がゼロの場合 -->
+<div th:if="${#lists.isEmpty(reservations)}">
+    <p>現在、予約はありません。</p>
+</div>
+
+<!-- 予約がある場合 -->
+<table th:if="${!#lists.isEmpty(reservations)}" border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>宿泊施設</th>
+            <th>チェックイン</th>
+            <th>チェックアウト</th>
+            <th>泊数</th>
+            <th>人数</th>
+            <th>金額</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="r : ${reservations}">
+            <td th:text="${r.house.name}"></td>
+            <td th:text="${r.checkinDate}"></td>
+            <td th:text="${r.checkoutDate}"></td>
+
+            <!-- 泊数 = checkout - checkin -->
+            <td th:text="${#temporals.daysBetween(r.checkinDate, r.checkoutDate)}"></td>
+
+            <td th:text="${r.numberOfPeople}"></td>
+            <td th:text="${r.amount} + ' 円'"></td>
+        </tr>
+    </tbody>
+</table>
+
+<p><a th:href="@{/}">トップページへ戻る</a></p>
+
+</body>
+</html>
