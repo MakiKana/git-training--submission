@@ -1,6 +1,6 @@
 package com.example.moattravel.service;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -18,31 +18,37 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    public Reservation createReservation(House house, User user, Reservation reservationForm) {
-        Reservation r = new Reservation();
-        r.setHouse(house);
-        r.setUser(user);
-        r.setCheckinDate(reservationForm.getCheckinDate());
-        r.setCheckoutDate(reservationForm.getCheckoutDate());
-        r.setNumberOfPeople(reservationForm.getNumberOfPeople());
+    /**
+     * 予約を作成する（料金計算含む）
+     */
+    public Reservation createReservation(House house, User user,
+                                         LocalDate checkinDate,
+                                         LocalDate checkoutDate,
+                                         int numPeople) {
 
-        long days = ChronoUnit.DAYS.between(
-                r.getCheckinDate(),
-                r.getCheckoutDate()
-        );
-        if (days <= 0) {
-            days = 1;
-        }
-        r.setAmount((int) days * house.getPrice());
+        // 泊数計算
+        long nights = ChronoUnit.DAYS.between(checkinDate, checkoutDate);
 
-        Timestamp now = new Timestamp(System.currentTimeMillis());
-        r.setCreatedAt(now);
-        r.setUpdatedAt(now);
+        // 合計金額計算
+        int totalPrice = (int) (house.getPrice() * nights * numPeople);
 
-        return reservationRepository.save(r);
+        // 新しい予約エンティティを作成
+        Reservation reservation = new Reservation();
+        reservation.setHouse(house);
+        reservation.setUser(user);
+        reservation.setCheckinDate(checkinDate);
+        reservation.setCheckoutDate(checkoutDate);
+        reservation.setNumberOfPeople(numPeople);
+        reservation.setAmount(totalPrice);
+
+        // 保存
+        return reservationRepository.save(reservation);
     }
 
+    /**
+     * 指定ユーザーの予約一覧
+     */
     public List<Reservation> findByUser(User user) {
-        return reservationRepository.findByUserOrderByCreatedAtDesc(user);
+        return reservationRepository.findByUser(user);
     }
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<div style="background:#f0f0f0; padding:10px; margin-bottom:20px;">
+    <a th:href="@{/}">🏠 ホーム</a> |
+    <a th:href="@{/houses}">🏨 宿一覧</a>
+
+    <!-- ログインしていない場合 -->
+    <span sec:authorize="isAnonymous()">
+        | <a th:href="@{/login}">ログイン</a>
+        | <a th:href="@{/register}">新規登録</a>
+    </span>
+
+    <!-- ログインしている場合 -->
+    <span sec:authorize="isAuthenticated()">
+        | <a th:href="@{/reservations/my}">マイページ</a>
+        | <a th:href="@{/logout}">ログアウト</a>
+    </span>
+
+    <!-- 管理者向けメニュー -->
+    <span sec:authorize="hasRole('ADMIN')">
+        | <a th:href="@{/admin/houses}">【管理】宿一覧</a>
+    </span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>予約フォーム</title>
+</head>
+<body>
+
+<h1>予約フォーム</h1>
+
+<!-- house.id を hidden で保持 -->
+<form th:action="@{/reservations/confirm}" method="post">
+
+    <input type="hidden" name="houseId" th:value="${house.id}" />
+
+    <p>
+        <strong>宿泊施設：</strong>
+        <span th:text="${house.name}"></span>
+    </p>
+
+    <p>
+        <label>チェックイン日：</label>
+        <input type="date" name="checkinDate" required>
+    </p>
+
+    <p>
+        <label>チェックアウト日：</label>
+        <input type="date" name="checkoutDate" required>
+    </p>
+
+    <p>
+        <label>人数：</label>
+        <input type="number" name="numPeople" value="1" min="1" required>
+    </p>
+
+    <p>
+        <button type="submit">確認画面へ</button>
+    </p>
+</form>
+
+<p>
+    <a th:href="@{/houses}">一覧に戻る</a>
+</p>
+
+</body>
+</html>

@@ -19,24 +19,36 @@ public class AdminHouseController {
     @Autowired
     private HouseService houseService;
 
+    /**
+     * 一覧表示
+     */
     @GetMapping
-    public String adminList(Model model) {
+    public String list(Model model) {
         model.addAttribute("houses", houseService.findAll());
         return "houses/admin-list";
     }
 
+    /**
+     * 新規登録画面
+     */
     @GetMapping("/new")
-    public String showForm(Model model) {
+    public String newHouse(Model model) {
         model.addAttribute("house", new House());
         return "houses/form";
     }
 
+    /**
+     * 新規登録処理
+     */
     @PostMapping("/new")
-    public String create(@ModelAttribute("house") House house) {
+    public String create(@ModelAttribute House house) {
         houseService.save(house);
         return "redirect:/admin/houses";
     }
 
+    /**
+     * 編集画面
+     */
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") Integer id, Model model) {
         House house = houseService.findById(id);
@@ -47,14 +59,19 @@ public class AdminHouseController {
         return "houses/form";
     }
 
+    /**
+     * 編集処理
+     */
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable("id") Integer id,
-                         @ModelAttribute("house") House form) {
-        form.setId(id);
-        houseService.save(form);
+    public String update(@PathVariable("id") Integer id, @ModelAttribute House house) {
+        house.setId(id); // IDをセット
+        houseService.save(house);
         return "redirect:/admin/houses";
     }
 
+    /**
+     * 削除処理
+     */
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Integer id) {
         houseService.delete(id);

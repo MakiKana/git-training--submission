@@ -2,18 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>管理者用 民宿一覧</title>
+    <title>管理者：宿一覧</title>
 </head>
 <body>
-<h1>管理者用 民宿一覧</h1>
 
-<p><a th:href="@{/admin/houses/new}">新規登録</a></p>
+<h1>管理者：宿一覧</h1>
 
-<table border="1">
+<a th:href="@{/admin/houses/new}">＋ 新規追加</a>
+
+<table border="1" cellpadding="8">
     <tr>
         <th>ID</th>
-        <th>名前</th>
-        <th>料金</th>
+        <th>宿名</th>
+        <th>価格</th>
         <th>操作</th>
     </tr>
     <tr th:each="house : ${houses}">
@@ -22,13 +23,15 @@
         <td th:text="${house.price}"></td>
         <td>
             <a th:href="@{|/admin/houses/${house.id}/edit|}">編集</a>
+            |
             <form th:action="@{|/admin/houses/${house.id}/delete|}" method="post" style="display:inline;">
-                <button type="submit" onclick="return confirm('削除しますか？');">削除</button>
+                <button type="submit">削除</button>
             </form>
         </td>
     </tr>
 </table>
 
-<p><a th:href="@{/}">トップへ戻る</a></p>
+<a href="/">トップに戻る</a>
+
 </body>
 </html>

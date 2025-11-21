@@ -2,54 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>民宿登録/編集</title>
+    <title>宿 編集 / 作成</title>
 </head>
 <body>
-<h1>民宿登録 / 編集</h1>
 
-<form th:action="@{${house.id} != null ? '/admin/houses/' + ${house.id} + '/edit' : '/admin/houses/new'}"
-      th:object="${house}" method="post">
+<h1>宿情報</h1>
 
-    <div>
-        <label>名前：
-            <input type="text" th:field="*{name}">
-        </label>
-    </div>
-    <div>
-        <label>説明：
-            <textarea th:field="*{description}"></textarea>
-        </label>
-    </div>
-    <div>
-        <label>料金：
-            <input type="number" th:field="*{price}">
-        </label>
-    </div>
-    <div>
-        <label>定員：
-            <input type="number" th:field="*{capacity}">
-        </label>
-    </div>
-    <div>
-        <label>郵便番号：
-            <input type="text" th:field="*{postalCode}">
-        </label>
-    </div>
-    <div>
-        <label>住所：
-            <input type="text" th:field="*{address}">
-        </label>
-    </div>
-    <div>
-        <label>電話番号：
-            <input type="text" th:field="*{phoneNumber}">
-        </label>
-    </div>
-    <div>
+<form th:action="@{${house.id} != null ? '/admin/houses/' + ${house.id} + '/edit' : '/admin/houses/new'}" method="post">
+
+    <p>
+        <label>宿名：</label>
+        <input type="text" name="name" th:value="${house.name}">
+    </p>
+
+    <p>
+        <label>価格：</label>
+        <input type="number" name="price" th:value="${house.price}">
+    </p>
+
+    <p>
+        <label>画像パス：</label>
+        <input type="text" name="imagePath" th:value="${house.imagePath}">
+        （例： /images/houses/house1.jpg ）
+    </p>
+
+    <p>
+        <label>説明：</label><br>
+        <textarea name="description" cols="30" rows="5" th:text="${house.description}"></textarea>
+    </p>
+
+    <p>
         <button type="submit">保存</button>
-    </div>
+    </p>
 </form>
 
-<p><a th:href="@{/admin/houses}">管理者民宿一覧へ戻る</a></p>
+<a th:href="@{/admin/houses}">一覧に戻る</a>
+
 </body>
 </html>
